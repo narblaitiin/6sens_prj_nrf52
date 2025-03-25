@@ -24,8 +24,11 @@ import paho.mqtt.client as mqtt
 import json
 
 broker = 'sastress.citi.insa-lyon.fr'
-#port = 1883
+# broker = 'sastress.project.citi-lab.fr'
+
+# port = 1883
 port = 8080
+
 topic = "sastress/gateway-status"
 client_id = f'subscribe-{random.randint(0, 100)}'
 
