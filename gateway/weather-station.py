@@ -5,6 +5,7 @@
 
 import time
 from time import sleep
+from time import strftime
 from w1thermsensor import W1ThermSensor
 
 import board
@@ -78,6 +79,9 @@ GPIO.add_event_callback(23, raintrig)
 while True:
 
     time.sleep(interval)
+
+    # grab the current date & time
+    timestamp = time.strftime("%Y-%m-%d_%H:%M:%S")
 
     # pull Temperature from DS18B20
     temperature = ds18b20.get_temperature()
@@ -168,5 +172,5 @@ while True:
     rainTick = 0
 
     # configure parameters to send
-    payload = json.dumps({'Temperature':temperature,'Vitesse':windSpeed,'Direction': windDeg,'Pluviometrie':rainFall})
+    payload = json.dumps({'Timestamp':timestamp,'Temperature':temperature,'Vitesse':windSpeed,'Direction': windDeg,'Pluviometrie':rainFall})
     mqtt_c.publish(topic, payload)
