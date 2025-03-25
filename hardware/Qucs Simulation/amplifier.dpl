@@ -1,0 +1,65 @@
+<Qucs Schematic 0.0.19>
+<Properties>
+  <View=311,85,2760,1175,0.93667,665,103>
+  <Grid=10,10,0>
+  <DataSet=amplifier.dat>
+  <DataDisplay=amplifier.sch>
+  <OpenDisplay=1>
+  <Script=amplifier.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 1150 507 591 397 3 #c0c0c0 1 10 1 1 1 1000 1 -22.0824 5 8.37643 1 -1 0.2 1 315 0 225 "frequency [Hz]" "gain of low pass filter (Lp:106Hz) [dB]" "">
+	<"gain_lp_106Hz" #0000ff 0 3 0 0 0>
+	  <Mkr 106 455 -377 3 0 0>
+  </Rect>
+  <Rect 390 967 591 397 3 #c0c0c0 1 10 1 1 1 1000 1 14 2 34.7234 1 -1 0.2 1 315 0 225 "frequency [Hz]" "gain of passband filter (HP:7Hz - LP:154Hz) [dB]" "">
+	<"gain_lp_154Hz" #0000ff 0 3 0 0 0>
+	  <Mkr 154 468 -344 3 0 0>
+	  <Mkr 7 33 -338 3 0 0>
+	  <Mkr 40 248 -304 3 0 0>
+  </Rect>
+  <Rect 1150 967 591 397 3 #c0c0c0 1 10 1 1 1 1000 1 -21.6088 5 10 1 -1 0.2 1 315 0 225 "frequency [Hz]" "gain of low pass filter (LP:234Hz) [dB]" "">
+	<"gain_lp_234Hz" #0000ff 0 3 0 0 0>
+	  <Mkr 234 284 -303 3 0 0>
+  </Rect>
+  <Rect 400 507 591 397 3 #c0c0c0 1 10 1 1 1 1000 1 -24.871 10 31.642 1 -1 0.2 1 315 0 225 "frequency [Hz]" "gain sensor [dB]" "">
+	<"gain_omni" #0000ff 0 3 0 0 0>
+	  <Mkr 400 391 -344 3 0 0>
+  </Rect>
+  <Rect 1810 507 591 397 3 #c0c0c0 1 10 1 1 1 1000 1 -21.6092 5 10 1 -1 0.2 1 315 0 225 "frequency [Hz]" "total gain  [dB]" "">
+	<"gain_tot" #0000ff 0 3 0 0 0>
+	  <Mkr 40 215 -265 3 0 0>
+  </Rect>
+  <Rect 1800 967 597 157 3 #c0c0c0 1 00 1 0 0.2 2 1 0 2 3.26041 1 -1 1 1 315 0 225 "" "" "">
+	<"Vout1.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.021/0/0/0/0 331 -151 3 0 0>
+	<"Vout2.Vt" #ff00ff 0 3 0 0 0>
+  </Rect>
+  <Rect 1806 776 584 160 3 #c0c0c0 1 00 1 -1 0.2 1 1 -1 1 1 1 -1 1 1 315 0 225 "" "" "">
+	<"Vlp_106Hz.Vt" #0000ff 0 3 0 0 0>
+	<"Vlp_154Hz.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.014/0/0/0/0 13 -163 3 0 0>
+	<"Vlp_234Hz.Vt" #ff00ff 0 3 0 0 0>
+  </Rect>
+  <Tab 1804 605 292 56 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 1000 315 0 225 "" "" "">
+	<"Pr1.V" #0000ff 0 3 0 0 0>
+	<"Pr2.V" #0000ff 0 3 0 0 0>
+	<"Pr3.V" #0000ff 0 3 1 0 0>
+	<"Pr4.V" #0000ff 0 3 1 0 0>
+	<"Pr5.V" #0000ff 0 3 1 0 0>
+  </Tab>
+</Diagrams>
+<Paintings>
+</Paintings>

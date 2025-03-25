@@ -1,0 +1,40 @@
+<Qucs Schematic 0.0.19>
+<Properties>
+  <View=335,59,1868,1057,0.918838,0,0>
+  <Grid=10,10,0>
+  <DataSet=gs_one_subn.dat>
+  <DataDisplay=gs_one_subn.sch>
+  <OpenDisplay=1>
+  <Script=gs_one_subn.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 750 975 672 415 3 #c0c0c0 1 10 1 1 1 1000 1 -20 20 190.458 1 -1 0.2 1 315 0 225 "frequency [Hz]" "phase [degree]" "">
+	<"phase" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 418 516 673 416 3 #c0c0c0 1 10 1 0 1 0 1 -1 0.2 1 1 -1 0.2 1 315 0 225 "frequency [Hz]" "gain [dB]" "">
+	<"gain_dB" #0000ff 0 3 0 0 0>
+	  <Mkr 411.589 457 -361 3 0 0>
+	  <Mkr 5.995 224 -287 3 0 0>
+	  <Mkr 1 60 -95 3 0 0>
+  </Rect>
+  <Rect 1150 513 671 414 3 #c0c0c0 1 11 1 1 1 1000 1 0.03 1 30 1 -1 0.2 1 315 0 225 "frequency [Hz]" "sensitivity [V/m/s]" "">
+	<"sensitivity" #0000ff 0 3 0 0 0>
+	  <Mkr 402.598 453 -354 3 0 0>
+	  <Mkr 5.995 227 -210 3 0 0>
+	  <Mkr 1 110 -121 3 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

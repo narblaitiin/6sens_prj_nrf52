@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "penguino")(type "Legacy")(uri "${KIPRJMOD}/librairies/lib_Penguino/penguino_v1.lib")(options "")(descr ""))
+  (lib (name "lmv321")(type "KiCad")(uri "${KIPRJMOD}/librairies/lib_lmv321/lmv321.kicad_sym")(options "")(descr ""))
+  (lib (name "lmv358")(type "KiCad")(uri "${KIPRJMOD}/librairies/lib_lmv358/lmv358.kicad_sym")(options "")(descr ""))
+)

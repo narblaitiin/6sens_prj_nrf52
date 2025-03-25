@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name "penguino")(type "KiCad")(uri "${KIPRJMOD}/librairies/lib_Penguino/penguino_v1.pretty")(options "")(descr ""))
+  (lib (name "lmv321")(type "KiCad")(uri "${KIPRJMOD}/librairies/lib_lmv321/footprints.pretty")(options "")(descr ""))
+  (lib (name "lmv358")(type "KiCad")(uri "${KIPRJMOD}/librairies/lib_lmv358/footprints.pretty")(options "")(descr ""))
+)
