@@ -30,7 +30,7 @@ broker = 'sastress.citi.insa-lyon.fr'
 port = 8080
 
 topic = "sastress/gateway-status"
-client_id = f'subscribe-{random.randint(0, 100)}'
+client_id = f'python-mqtt-{random.randint(0, 100)}'
 
 def on_connect(client,userdata,flags,rc):
     if rc==0:
