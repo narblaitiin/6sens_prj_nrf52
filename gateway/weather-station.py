@@ -26,11 +26,13 @@ import json
 broker = 'sastress.citi.insa-lyon.fr'
 # broker = 'sastress.project.citi-lab.fr'
 
-# port = 1883
-port = 8080
+port = 1883
+# port = 8080
 
 topic = "sastress/gateway-status"
 client_id = f'python-mqtt-{random.randint(0, 100)}'
+user = "sastress-front"
+password = ""
 
 def on_connect(client,userdata,flags,rc):
     if rc==0:
@@ -40,7 +42,7 @@ def on_connect(client,userdata,flags,rc):
 
 mqtt_c=mqtt.Client(client_id)
 mqtt_c.on_connect=on_connect
-mqtt_c.username_pw_set("sastress-front",password="")
+mqtt_c.username_pw_set(user,password)
 mqtt_c.connect(broker, port)
 mqtt_c.loop_start()
 
