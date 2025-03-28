@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 # satsress project
-# weather sation code for the LoRaWAN gateway without MQTT
+# weather sation code for the LoRaWAN gateway with MQTT
 # version 1.0 - 25/03/2025
+
 
 import json
 import threading
@@ -9,10 +10,20 @@ from time import sleep
 import board
 import busio
 from adafruit_bme280 import basic as adafruit_bme280
+import paho.mqtt.client as mqtt
 
 # Initialize sensors
 i2c = busio.I2C(board.SCL, board.SDA)
 temp_sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c)
+
+# MQTT setup
+BROKER_ADDRESS = "sastress.citi.insa-lyon.fr"  # Replace with your MQTT broker address
+PORT = 1883  # Default MQTT port; adjust if necessary
+TOPIC = "gateway-status"  # Replace with your desired topic
+
+client = mqtt.Client()
+client.connect(BROKER_ADDRESS, PORT, 60)
+client.username_pw_set("sastress-gateway", "URTssVNrfXB1mp7TO")
 
 # Global variables
 wind_count = 0
@@ -57,7 +68,6 @@ def get_wind_direction(val):
         wind_deg = 315
     elif 17500 <= val <= 18500:
         wind_deg = 337.5
-    # Add other ranges as required
     return wind_deg
 
 # Increment wind count
@@ -91,7 +101,6 @@ def collect_data():
     while True:
         sleep(interval)
         speed.append(wind_speed(interval))
-        # Assume wind direction is measured separately
         wind_deg.append(get_wind_direction(0))  # Replace `0` with actual sensor value
         i += 1
         if i == 15:  # Send data every 15 intervals
@@ -107,6 +116,7 @@ def collect_data():
                 "wind_dir": dir_avg
             })
             print(payload)
+            client.publish(TOPIC, payload)
             i = 0
             speed.clear()
             wind_deg.clear()
@@ -120,3 +130,6 @@ rain_sensor_thread.start()
 
 # Start data collection
 collect_data()
+
+
+
