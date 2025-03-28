@@ -10,8 +10,6 @@
 # reboot
 # test: cd logs then cat cronlog
 
-
-
 cd /
 cd /home/admin/weather-station/
 python3 weather-station-mqtt.py
