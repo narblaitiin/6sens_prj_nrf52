@@ -22,12 +22,13 @@ temp_sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
 # MQTT setup
 BROKER_ADDRESS = "sastress.citi.insa-lyon.fr"  # Replace with your MQTT broker address
-PORT = 1883  # Default MQTT port; adjust if necessary
-TOPIC = "gateway-status"  # Replace with your desired topic
+# PORT = 1883  # Default MQTT port; adjust if necessary
+PORT = 8080
+TOPIC = "v3/sastress-stm32-app@wifi/gateway-status"  # Replace with your desired topic
 
 client = mqtt.Client()
-client.connect(BROKER_ADDRESS, PORT, 60)
 client.username_pw_set("sastress-gateway", "URTssVNrfXB1mp7TO")
+client.connect(BROKER_ADDRESS, PORT, 120)
 
 # Global variables
 wind_count = 0
