@@ -2,10 +2,14 @@
 # satsress project
 # weather sation code for the LoRaWAN gateway without MQTT
 # version 1.0 - 25/03/2025
+# version 1.1 - 01/04/2025 (add date and time in payload)
 
 import json
 import threading
+
 from time import sleep
+from datetime import datetime
+
 import board
 import busio
 from adafruit_bme280 import basic as adafruit_bme280
@@ -95,11 +99,13 @@ def collect_data():
         wind_deg.append(get_wind_direction(0))  # Replace `0` with actual sensor value
         i += 1
         if i == 15:  # Send data every 15 intervals
+            dt = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
             temper = temperature()
             hum = humidity()
             speed_avg = sum(speed) / len(speed)
             dir_avg = sum(wind_deg) / len(wind_deg) if wind_deg else 0
             payload = json.dumps({
+                "time": dt,
                 "rain": rain_cum,
                 "temperature": temper,
                 "humidity": hum,
