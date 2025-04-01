@@ -13,12 +13,13 @@ After=multi-user.target
 
 [Service]
 
-ExecStart=/usr/bin/python3 /path/to/your_script.py
-WorkingDirectory=/home/pi
+ExecStart=/usr/bin/python3 /home/admin/weather-station/weather-station-mqtt.py
+WorkingDirectory=/home/admin/weather-station
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-User=pi
+User=admin
+Group=admin
 
 [Install]
 
