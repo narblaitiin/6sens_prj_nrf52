@@ -13,8 +13,8 @@ After=multi-user.target
 
 [Service]
 
-ExecStart=/usr/bin/python3 /home/admin/weather-station/weather-station-mqtt.py
-WorkingDirectory=/home/admin/weather-station
+ExecStart=/usr/bin/python3 /home/admin/weatherstation/mqtt_weather_hat.py
+WorkingDirectory=/home/admin/weatherstation
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

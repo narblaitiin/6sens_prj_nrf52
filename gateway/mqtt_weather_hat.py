@@ -1,9 +1,10 @@
 #! /usr/bin/env python3
 # satsress project
-# weather sation code for the LoRaWAN gateway without MQTT
+# weather sation code for the LoRaWAN gateway with MQTT
 # version 1.0 - 25/03/2025
 # version 1.1 - 01/04/2025 (add date and time in payload)
 
+import RPi.GPIO as GPIO
 import json
 import threading
 
@@ -13,10 +14,35 @@ from datetime import datetime
 import board
 import busio
 from adafruit_bme280 import basic as adafruit_bme280
+import paho.mqtt.client as mqtt
+
+from w1thermsensor import W1ThermSensor
+
+import adafruit_ads1x15.ads1015 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
 
 # Initialize sensors
 i2c = busio.I2C(board.SCL, board.SDA)
-temp_sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c)
+bme = adafruit_bme280.Adafruit_BME280_I2C(i2c)
+ds18b20 = W1ThermSensor()
+ads = ADS.ADS1015(i2c)
+ads.gain = 1
+
+# GPIO setup
+GPIO.setmode(GPIO.BCM)
+WIND_PIN = 23  # Wind speed sensor GPIO pin
+RAIN_PIN = 17  # Rain sensor GPIO pin
+GPIO.setup(WIND_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(RAIN_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+# MQTT setup
+BROKER_ADDRESS = "sastress.citi.insa-lyon.fr"  # Replace with your MQTT broker address
+PORT = 8080
+TOPIC = "v3/sastress-stm32-app@wifi/gateway-status"  # Replace with your desired topic
+
+client = mqtt.Client()
+client.username_pw_set("sastress-gateway", "URTssVNrfXB1mp7TO")
+client.connect(BROKER_ADDRESS, PORT, 120)
 
 # Global variables
 wind_count = 0
@@ -25,6 +51,9 @@ BUCKET_SIZE = 0.2794  # Adjust based on rain gauge calibration
 interval = 60  # Interval in seconds for data collection
 speed = []
 wind_deg = []
+
+chan = AnalogIn(ads, ADS.P0)
+val = chan.value
 
 # Wind direction logic
 def get_wind_direction(val):
@@ -61,16 +90,15 @@ def get_wind_direction(val):
         wind_deg = 315
     elif 17500 <= val <= 18500:
         wind_deg = 337.5
-    # Add other ranges as required
     return wind_deg
 
 # Increment wind count
-def spin():
+def wind_event(channel):
     global wind_count
     wind_count += 1
 
 # Increment rain bucket count
-def rain():
+def rain_event(channel):
     global rain_cum
     rain_cum += BUCKET_SIZE
 
@@ -83,10 +111,10 @@ def wind_speed(interval):
 
 # Temperature and humidity
 def temperature():
-    return temp_sensor.temperature
+    return ds18b20.get_temperature()
 
 def humidity():
-    return temp_sensor.humidity
+    return bme.humidity
 
 # Collect and send data
 def collect_data():
@@ -95,7 +123,6 @@ def collect_data():
     while True:
         sleep(interval)
         speed.append(wind_speed(interval))
-        # Assume wind direction is measured separately
         wind_deg.append(get_wind_direction(0))  # Replace `0` with actual sensor value
         i += 1
         if i == 15:  # Send data every 15 intervals
@@ -113,16 +140,14 @@ def collect_data():
                 "wind_dir": dir_avg
             })
             print(payload)
+            client.publish(TOPIC, payload)
             i = 0
             speed.clear()
             wind_deg.clear()
 
-# Start threads for rain and wind sensors
-wind_sensor_thread = threading.Thread(target=spin)
-rain_sensor_thread = threading.Thread(target=rain)
-
-wind_sensor_thread.start()
-rain_sensor_thread.start()
+# Set up GPIO event detection
+GPIO.add_event_detect(WIND_PIN, GPIO.FALLING, callback=wind_event, bouncetime=300)
+GPIO.add_event_detect(RAIN_PIN, GPIO.FALLING, callback=rain_event, bouncetime=300)
 
 # Start data collection
 collect_data()
